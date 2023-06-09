@@ -1,0 +1,27 @@
+#include <bits/stdc++.h> 
+void sort012(int *arr, int n)
+{
+   //   Write your code here
+   // sort(arr,arr+n);
+   // APPROACH-2
+   int i=0;
+   int nextzero=0;
+   int nexttwo=n-1;
+   while(i<n){
+      if(arr[i]==0 and i>nexttwo){
+         int temp=arr[i];
+         arr[i]=arr[nextzero];
+         arr[nextzero]=temp;
+         i++;
+         nextzero++;
+      }
+      if(arr[i]==2 and i<nexttwo){
+         int temp=arr[i];
+         arr[i]=arr[nexttwo];
+         arr[nexttwo]=temp;
+         i++;
+         nexttwo--;
+      }
+      else  i++;
+   }
+}
