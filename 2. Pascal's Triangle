@@ -1,0 +1,17 @@
+#include <bits/stdc++.h>
+
+vector<vector<long long int>> printPascal(int n) 
+{
+  // Write your code here.
+  // dp -- bottom up approach
+  vector<vector<long long> > output(n);
+  output[0].push_back(1);
+  for(int i=1; i<n; i++){
+    output[i].push_back(1);
+    for (int j = 0; j < i - 1; j++) {
+      output[i].push_back(output[i - 1][j] + output[i - 1][j + 1]);
+    }
+    output[i].push_back(1);
+  }
+  return output;
+}
