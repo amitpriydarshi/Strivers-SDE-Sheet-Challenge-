@@ -1,0 +1,18 @@
+#include <bits/stdc++.h>
+
+vector<int> majorityElementII(vector<int> &arr)
+{
+    // Write your code here.
+    int n=arr.size();
+    int m=n/3;
+    vector<int> output;
+    unordered_map<int,int> priyu;
+    for(auto it: arr) priyu[it]++;
+    for(auto it:priyu){
+        int element=it.first;
+        int freq=it.second;
+        if(freq>m) output.push_back(element);
+    }
+    return output;
+
+}
