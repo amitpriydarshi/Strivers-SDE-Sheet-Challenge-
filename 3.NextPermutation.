@@ -1,0 +1,22 @@
+#include <bits/stdc++.h> 
+vector<int> nextPermutation(vector<int> &permutation, int n)
+{
+    int breakpoint=INT_MIN;
+    for(int i=n-2; i>=0; i--){
+        if(permutation[i]<permutation[i+1]){
+            breakpoint=i; break;
+        }
+    }
+    if(breakpoint==INT_MIN){
+        reverse(permutation.begin(),permutation.end());
+        return permutation;
+    }
+    for(int i=n-1; i>=0; i--){
+        if(permutation[i]>permutation[breakpoint]) {
+            swap(permutation[i],permutation[breakpoint]);
+            break;
+        }
+    }
+    reverse(permutation.begin()+breakpoint+1,permutation.end());
+    return permutation;
+}
