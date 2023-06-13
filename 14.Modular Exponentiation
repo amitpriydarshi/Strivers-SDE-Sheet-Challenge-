@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+
+int modularExponentiation(int x, int n, int m) {
+	// Write your code here.
+
+	// optimized approach 
+	if(n==0) return 1;
+    int output=modularExponentiation(x,n/2,m);
+	int finaloutput=0;
+	if(n%2==0){
+		finaloutput=(1LL*output*output)%m;
+	}
+	else finaloutput=(1LL*(1LL*output*output)%m*x%m)%m;
+	return finaloutput;
+
+
+
+	// brute force approach
+    // int p=pow(x,n);
+	// int output=p%m;
+	// return output;
+	// int output=1;
+	// for(int i=1; i<=n; i++){
+    //    output=(1LL*output*x)%m;
+	// }
+	// return output;
+}
