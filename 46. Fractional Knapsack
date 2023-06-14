@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+bool compare(pair<int,int> &p1,pair<int,int> &p2){
+    double value1=(double)p1.second/p1.first;
+    double value2=(double)p2.second/p2.first;
+    return value1>value2;
+}
+double maximumValue (vector<pair<int, int>>& items, int n, int w)
+{
+    // Write your code here.
+    // ITEMS contains {weight, value} pairs
+    sort(items.begin(),items.end(),compare);
+    int currentweight=0;
+    double fractionalvalue=0;
+    for(int i=0; i<n; i++){
+        if(currentweight+items[i].first<=w){
+            currentweight+=items[i].first;
+            fractionalvalue+=items[i].second;
+
+        }
+        else{
+            int ramainingwight=w-currentweight;
+            fractionalvalue+=items[i].second*((double)ramainingwight/items[i].first);
+            break;
+        }
+    }
+    return fractionalvalue;
+
+}
