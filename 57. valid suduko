@@ -1,0 +1,62 @@
+#include<bits/stdc++.h>
+bool findlocation(int matrix[9][9],int &row,int &column){
+    for(int i=0; i<9; i++){
+        for(int j=0; j<9; j++){
+            if(matrix[i][j]==0){
+                // update row and column and return true;
+                row=i;
+                column=j;
+                return true;
+            }
+        }
+    }
+    return false;
+}
+bool issaferow(int matrix[9][9],int row,int num){
+    for(int i=0; i<9; i++){
+        if(matrix[row][i]==num) return false;
+    }
+    return true;
+}
+bool issafecolumn(int matrix[9][9],int column,int num){
+    for(int i=0; i<9; i++){
+        if(matrix[i][column]==num) return false;
+    }
+    return true;
+
+}
+bool issafegrid(int matrix[9][9],int row,int column,int num){
+    int rowfactor=row-(row%3);
+    int columnfactor=column-(column%3);
+    for(int i=0; i<3; i++){
+        for(int j=0; j<3; j++){
+            if(matrix[i+rowfactor][j+columnfactor]==num) return false;
+        }
+    }
+    return true;
+}
+bool isSafe(int matrix[9][9],int row,int column,int num){
+    if(issaferow(matrix,row,num) and issafecolumn(matrix,column,num) and issafegrid(matrix,row,column,num)){
+        return true;
+    }
+    return false;
+}
+bool isItSudoku(int matrix[9][9]) {
+    // Write your code here
+    int row,column;
+    if(!findlocation(matrix,row,column)){
+        // we reached to or location
+        return true;
+    }
+    for(int i=1; i<=9; i++){
+      if (isSafe(matrix, row, column, i)) {
+          matrix[row][column]=i;
+          if(isItSudoku(matrix)){
+              return true;
+          }
+          // marke that with the zero and explroe 
+          matrix[row][column]=0;
+      }
+    }
+    return false;
+}
