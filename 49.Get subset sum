@@ -1,0 +1,19 @@
+#include <bits/stdc++.h>
+void getsubset(int  i,int sum,vector<int>& num,vector<int>& output){
+    if(i==num.size()){
+        output.push_back(sum);
+        return;
+    }
+    // two recursive calls
+    getsubset(i+1,sum+num[i],num,output);
+    getsubset(i+1,sum,num,output);
+    
+}
+vector<int> subsetSum(vector<int> &num)
+{
+    // Write your code here.
+    vector<int> output;
+    getsubset(0,0,num,output);
+    sort(output.begin(),output.end());
+    return output;
+}
