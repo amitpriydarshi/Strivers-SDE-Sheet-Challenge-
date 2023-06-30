@@ -1,0 +1,10 @@
+#include <bits/stdc++.h> 
+int kthLargest(vector<int>& arr, int size, int K)
+{
+	// Write your code here.
+ // first approacah
+	sort(arr.begin(),arr.end());
+	return arr[size-K];
+
+ // 2nd approach -- we can even use the prioriyt queue
+}
