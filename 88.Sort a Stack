@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+void merge(stack<int> &stack,int curr){
+	if(stack.empty() or curr>stack.top()){
+		stack.push(curr);
+		return;
+	}
+	int top=stack.top();
+	stack.pop();
+	merge(stack,curr);
+	// push the top  element
+	stack.push(top);
+}
+void sortStack(stack<int> &stack)
+{
+	// Write your code here
+	if(stack.empty()) return;
+	int tp=stack.top();
+	// here we have to now pop the top most element of the stack
+	stack.pop();
+	sortStack(stack);
+	merge(stack,tp);
+	
+}
