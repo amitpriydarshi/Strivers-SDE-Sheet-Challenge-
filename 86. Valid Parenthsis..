@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+
+bool isValidParenthesis(string s)
+{
+    stack<char> st;
+    for(int i=0; i<s.length(); i++){
+        char ch=s[i];
+        // chack ---if opening bracket push into the stack and if closing pop the top of the stack and check the condn
+        if(ch=='(' or ch=='{' or ch=='['){
+            st.push(ch);
+        }
+        else{
+            //closing bracket
+            if(!st.empty()){
+                char topelement=st.top();
+                if((ch==')' and topelement=='(') or(ch=='}' and topelement=='{') or(ch==']' and topelement=='[')){
+                    st.pop();
+                }
+                else{
+                    return false;
+                }
+            }
+            else{
+                return false;
+            }
+        }
+    }
+    if(st.empty()) {
+        return true;
+    }
+    else{
+        return false;
+    }
+}
