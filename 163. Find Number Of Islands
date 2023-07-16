@@ -1,0 +1,39 @@
+#include<bits/stdc++.h>
+void bfs(int row,int col,vector<vector<int>>&vis,int **arr,int n,int m){
+   vis[row][col]=1;
+   queue<pair<int,int>> q;
+   q.push({row,col});
+   while(!q.empty()){
+      int row=q.front().first;
+      int col=q.front().second;
+      q.pop();
+
+      // herw we have to explore in all the 8 direction.....
+      for(int di=-1; di<=1; di++){
+         for(int dc=-1; dc<=1; dc++){
+            int nrow=row+di;
+            int ncol=col+dc;
+            if(nrow>=0 and nrow<n and ncol>=0 and ncol<m and arr[nrow][ncol]==1 and !vis[nrow][ncol]){
+               vis[nrow][ncol]=1;
+               q.push({nrow,ncol});
+            }
+         }
+      }
+   }
+}
+
+int getTotalIslands(int** arr, int n, int m)
+{
+   // Write your code here.
+   vector<vector<int>> vis(n,vector<int>(m,0));
+   int count=0;
+   for(int row=0; row<n; row++){
+      for(int col=0; col<m; col++){
+         if(!vis[row][col] and arr[row][col]==1){
+            count++;
+            bfs(row,col,vis,arr,n,m);
+         }
+      }
+   }
+   return count;
+}
