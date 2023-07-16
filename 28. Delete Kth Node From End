@@ -1,0 +1,54 @@
+/*
+Following is the class structure of the Node class:
+
+class Node
+{
+public:
+    int data;
+    Node *next;
+    Node()
+    {
+        this->data = 0;
+        next = NULL;
+    }
+    Node(int data)
+    {
+        this->data = data; 
+        this->next = NULL;
+    }
+    Node(int data, Node* next)
+    {
+        this->data = data;
+        this->next = next;
+    }
+};
+*/
+
+Node* removeKthNode(Node* head, int K)
+{
+    if(head==NULL or K==0) return head;
+    Node* temp=head;
+    int len=0;
+    while(temp != NULL){
+        len++; temp=temp->next;
+    }
+    // if the kth node from the end is our head
+    if(K==len){
+        Node* next=head->next;
+        head->next=NULL;
+        head=next;
+    }else{
+        int cnt=0;
+        temp=head;
+        while(temp != NULL){
+            cnt++;
+            if (len - K == cnt) {
+          // we have to just update out pointer
+          temp->next = temp->next->next;
+          break;
+        }
+        temp = temp->next;
+        }
+    }
+    return head;
+}
