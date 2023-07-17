@@ -1,0 +1,21 @@
+#include<bits/stdc++.h>
+int maximumActivities(vector<int> &start, vector<int> &finish) {
+    // Write your code here.
+    int n=start.size();
+    vector<pair<int,int> > act(n);
+    for(int i=0; i<n; i++){
+        act[i].first=finish[i];
+        act[i].second=start[i];
+    }
+    // sort w.r.t. their end timing
+    sort(act.begin(),act.end());
+    int totalcount=0;
+    int curr_time=act[0].first;
+    for(int i=1; i<n; i++){
+        if(act[i].second>=curr_time){
+            totalcount++;
+            curr_time=act[i].first;
+        }
+    }
+    return totalcount+1;
+}
