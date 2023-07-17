@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+void swap(string &s,int i,int j){
+    char temp=s[i];
+    s[i]=s[j];
+    s[j]=temp;
+}
+void helper(string &s,int i,int j,vector<string> &output){
+    if(i>=j){
+        string temp="";
+        for(int k=0; k<s.length(); k++){
+            temp+=(s[k]);
+        }
+        output.push_back(temp);
+        return;
+    }
+    for(int k=i; k<=j; k++){
+        swap(s,i,k);
+        helper(s,i+1,j,output);
+        swap(s,i,k);
+    }
+}
+vector<string> findPermutations(string &s) {
+    // Write your code here.
+    int n=s.length()-1;
+    vector<string> output;
+    // if(n==0) return output;
+    helper(s,0,n,output);
+    return output;
+}
