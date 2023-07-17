@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+void helper(int i,int n,vector<int>&arr,vector<int>&output,vector<vector<int>>&finaloutput){
+    if(i==n) {
+        finaloutput.push_back(output);
+        return;
+    }
+    else{
+        output.push_back(arr[i]);
+        helper(i+1,n,arr,output,finaloutput);
+        output.pop_back();
+
+        // skip part so here we have to skip the element if we skip previously
+        while(i+1<arr.size() and arr[i]==arr[i+1]) i++;
+        helper(i+1,n,arr,output,finaloutput);
+    }
+} 
+vector<vector<int>> uniqueSubsets(int n, vector<int> &arr)
+{
+    sort(arr.begin(),arr.end());
+    vector<int> output;
+    vector<vector<int>> finaloutput;
+    helper(0,n,arr,output,finaloutput);
+    sort(finaloutput.begin(),finaloutput.end());
+    return finaloutput;
+}
