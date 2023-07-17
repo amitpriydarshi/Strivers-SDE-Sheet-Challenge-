@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+bool compare(vector<int>&j1,vector<int>&j2){
+    return j1[1]>j2[1];
+
+}
+int jobScheduling(vector<vector<int>> &jobs)
+{
+    // Write your code here
+    sort(jobs.begin(),jobs.end(),compare);
+    int max_pro=0;
+    int max_dead=0;
+    for(int i=0; i<jobs.size(); i++) max_dead=max(max_dead,jobs[i][0]);
+    bool slotsarray[max_dead+1];
+    for(int i=0; i<=max_dead; i++) slotsarray[i]=false;
+
+    for(int i=0; i<jobs.size(); i++){
+        for(int j=jobs[i][0]; j>0; j--){
+            if(slotsarray[j]==false){
+                max_pro+=jobs[i][1];
+                slotsarray[j]=true;
+                break;
+            }
+        }
+    }
+    return max_pro;
+}
