@@ -1,0 +1,39 @@
+// greedy approcah sort based on the basic of end time..
+#include<bits/stdc++.h>
+struct meeting{
+    int index;
+    int st; 
+    int et;
+};
+
+bool compare(struct meeting x,struct meeting y){
+    if(x.et==y.et) {
+        return x.index<y.index;
+    }
+    else {
+        return x.et<y.et;
+    }
+}
+
+int maximumMeetings(vector<int> &start, vector<int> &end)
+{
+    int n=start.size();
+    struct meeting arr[n];
+    for(int i=0; i<n; i++){
+       arr[i].index=i+1;
+       arr[i].st=start[i];
+       arr[i].et=end[i];
+    }
+    // sort the array on the basic of the end time using compare function
+    sort(arr,arr+n,compare);
+    int count=1;
+    int currentend=arr[0].et;
+    for(int i=1; i<n;i++){
+        if(arr[i].st>currentend){
+            count++;
+            // update the currentend time 
+            currentend=arr[i].et;
+        }
+    }
+    return count;
+}
