@@ -1,0 +1,48 @@
+#include<bits/stdc++.h>
+class LRUCache {
+public:
+    map<int,int> m;
+    map<int,list<int>::iterator> address;
+    list<int> l;
+    int capacity;
+    int size;
+    LRUCache(int capacity) {
+        this->capacity=capacity;
+        size=0;
+    }
+    
+    int get(int key) {
+        if(m.find(key) == m.end()) return -1;
+        // else return m[key];
+        int ans=m[key];
+        list<int>::iterator it=address[key];
+        l.erase(it);
+        address.erase(key);
+        l.push_front(key);
+        address[key]=l.begin();
+        return ans;
+
+    }
+    
+    void put(int key, int value) {
+        // m[key]=value;
+        if(m.find(key)!=m.end()){
+            l.erase(address[key]);
+            address.erase(key);
+            m.erase(key);
+            size--;
+        }
+        if(size==capacity){
+            int k=l.back();
+            l.pop_back();
+            address.erase(k);
+            m.erase(k);
+            size--;
+        }
+        size++;
+        l.push_front(key);
+        address[key]=l.begin();
+        m[key]=value;
+    }
+};
+
