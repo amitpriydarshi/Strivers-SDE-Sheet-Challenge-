@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+vector<int> nextSmallerElement(vector<int> &arr, int n)
+{
+    
+    stack<int> s;
+    vector<int> ans(n);
+    s.push(-1);
+    for(int i=n-1; i>=0; i--){
+        while(s.top() !=-1 and arr[s.top()]>=arr[i]) s.pop();
+        // ans.push_back(s.top());
+        ans[i]=s.top();
+        s.push(i);
+    }
+    return ans;
+}
+vector<int> nextpreviosElemnt(vector<int> &arr, int n)
+{
+    
+    stack<int> s;
+    vector<int> ans(n);
+    s.push(-1);
+    for(int i=0; i<n; i++){
+        while(s.top() !=-1 and arr[s.top()]>=arr[i]) s.pop();
+        // ans.push_back(s.top());
+        ans[i]=s.top();
+        s.push(i);
+    }
+    return ans;
+}
+int largestRectangle(vector < int > & heights) {
+   // for the particilar current index we have to find its preceding smaller and next smaller element
+  int n=heights.size();
+  vector<int> next(n);
+  next=nextSmallerElement(heights,n);
+  vector<int> previous(n);
+  previous=nextpreviosElemnt(heights,n);
+  int maxi_area=INT_MIN;
+  for(int i=0; i<n; i++){
+    int len=heights[i];
+    if(next[i]==-1) next[i]=n;
+    int bre=next[i]-previous[i]-1;
+    int maxi=len*bre;
+    maxi_area=max(maxi_area,maxi);
+  }
+  return maxi_area;
+ }
