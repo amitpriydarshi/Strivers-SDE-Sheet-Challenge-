@@ -1,0 +1,56 @@
+#include <bits/stdc++.h> 
+/*************************************************************
+
+    Following is the Binary Tree node structure
+
+    template <typename T>
+
+    class BinaryTreeNode
+    {
+    public :
+        T data;
+        BinaryTreeNode<T> *left;
+        BinaryTreeNode<T> *right;
+
+        BinaryTreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+
+        ~BinaryTreeNode() {
+            if (left)
+            {
+                delete left;
+            }
+            if (right)
+            {
+                delete right;
+            }
+        }
+    };
+
+*************************************************************/
+#include<vector>
+void inorder(BinaryTreeNode<int>* root,vector<int>& v){
+    if(root==NULL) return;
+    inorder(root->left,v);
+    v.push_back(root->data);
+    inorder(root->right,v);
+}
+pair<int,int> predecessorSuccessor(BinaryTreeNode<int>* root, int key)
+{
+    // Write your code here.
+    vector<int> in;
+    inorder(root,in);
+    int p=-1,s=-1;
+    for(int i=0; i<in.size(); i++){
+        if(in[i]==key){
+            if(i-1>=0) p=in[i-1];
+            if(i+1<in.size()) s=in[i+1];
+            break;
+        }
+    }
+    // pair<int,int> output={make_pair{p,s}};
+    return {p,s};
+}
