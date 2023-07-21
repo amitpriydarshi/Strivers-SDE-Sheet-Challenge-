@@ -1,0 +1,51 @@
+#include <bits/stdc++.h> 
+/*
+    ----------------- Binary Tree node class for reference -----------------
+
+    template <typename T>
+    class BinaryTreeNode {
+        public : 
+            T data;
+            BinaryTreeNode<T> *left;
+            BinaryTreeNode<T> *right;
+            BinaryTreeNode<T> *next;
+
+            BinaryTreeNode(T data) {
+                this -> data = data;
+                left = NULL;
+                right = NULL;
+                next = NULL;
+            }
+    };
+*/
+
+void connectNodes(BinaryTreeNode< int > *root) {
+    // Write your code here.
+    BinaryTreeNode<int>* fn=root;
+    while(fn != NULL){
+        BinaryTreeNode<int>* onlev=fn;
+        BinaryTreeNode<int>* prev=NULL;
+        fn=NULL;
+        while(onlev != NULL){
+            if(onlev->left != NULL){
+                if(prev != NULL){
+                    prev->next=onlev->left;
+                }
+                if(fn==NULL){
+                    fn=onlev->left;
+                }
+                prev=onlev->left;
+            }
+            if(onlev->right != NULL){
+                if(prev != NULL){
+                    prev->next=onlev->right;
+                }
+                if(fn==NULL){
+                    fn=onlev->right;
+                }
+                prev=onlev->right;
+            }
+            onlev=onlev->next;
+        }
+    }
+}
