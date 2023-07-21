@@ -1,0 +1,33 @@
+#include <bits/stdc++.h> 
+/*************************************************************
+ 
+    Following is the Binary Tree node structure
+
+    class BinaryTreeNode 
+    {
+    public : 
+        T data;
+        BinaryTreeNode<T> *left;
+        BinaryTreeNode<T> *right;
+
+        BinaryTreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+*************************************************************/
+bool helper(BinaryTreeNode<int>* root,int mini,int maxi){
+    if(root==NULL) return true;
+    if(root->data<mini or root->data>maxi) return false;
+    bool isleft=helper(root->left,mini,root->data);
+    bool isright=helper(root->right,root->data,maxi);
+    return isleft and isright;
+}
+bool validateBST(BinaryTreeNode<int> *root) {
+    // Write your code here
+    int mini=INT_MIN;
+    int maxi=INT_MAX;
+    return helper(root,mini,maxi);
+}
