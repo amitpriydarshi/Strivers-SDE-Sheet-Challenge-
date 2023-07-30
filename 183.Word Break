@@ -1,0 +1,22 @@
+#include <bits/stdc++.h> 
+
+bool wordBreak(vector < string > & arr, int n, string & target) {
+    
+    unordered_set < string > hashMap;
+    for (string s: arr) {
+        hashMap.insert(s);
+    }
+    vector < bool > dp(target.size() + 1, false);
+    dp[0] = true;
+    for (int i = 1; i <= target.size(); ++i) {
+        for (int j = i - 1; j >= 0; --j) {
+            if (dp[j]) {
+                if (hashMap.find(target.substr(j, i - j)) != hashMap.end()) {
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+    }
+    return dp[target.size()];
+}
